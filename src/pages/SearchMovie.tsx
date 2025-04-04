@@ -2,6 +2,8 @@ import React from 'react'
 
 export const SearchMovie = () => {
   return (
-    <h1>SearchMovie</h1>
+    <div>
+      <h1>SearchMovie</h1>
+    </div>
   )
 }
