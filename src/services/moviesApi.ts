@@ -19,10 +19,19 @@ export interface Movie {
 
 export const getPopularMovies = async (): Promise<Movie[]> => {  
     try {
-        const response = await agent({ url: '/popular?language=en-US&page=1'});
+        const response = await agent({ url: '/movie/popular?language=en-US&page=1'});
         return response.data.results;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         throw new Error(error.message);
     }      
 };
+
+export const getMovieById = async (id: any): Promise<Movie[]> => {
+    try {
+        const response = await agent(`/movie/${id}?language=en-US`);
+        return response.data;
+    }catch(error) {
+        throw new Error(error);
+    }
+}
