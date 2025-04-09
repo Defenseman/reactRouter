@@ -35,3 +35,12 @@ export const getMovieById = async (id: any): Promise<Movie[]> => {
         throw new Error(error);
     }
 }
+
+export const getMovieByQuery = async (query) => {
+    try {
+        const response = await agent(`/search/movie?query=${query}`);
+        return response.data.results;
+    } catch(error) {
+        throw new Error(error);
+    }
+}

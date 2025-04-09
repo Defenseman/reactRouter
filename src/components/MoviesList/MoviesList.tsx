@@ -11,7 +11,7 @@ interface IMovies {
   overview: string;
 };
 
-interface MoviesProps {
+export interface MoviesProps {
   movies: IMovies[]
 }
 
