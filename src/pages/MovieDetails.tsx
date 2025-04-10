@@ -5,10 +5,10 @@ import Button from '@mui/material/Button';
 
 const BASE_IMG = 'https://image.tmdb.org/t/p/w500';
 
-export const MovieDetails = () => {
-  const params = useParams();
+const MovieDetails = () => {
+  const {id} = useParams();
   const [movieData, setMovieData] = useState(null);
-  console.log(params.id)   // выведет тот параметр котрый мы задали при маршрутизации path='/search/:id' 
+  console.log(id)   // выведет тот параметр котрый мы задали при маршрутизации path='/search/:id' 
                             // все что после ":" (здесь это id) например {id: 2343242}
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,8 +16,8 @@ export const MovieDetails = () => {
   console.log(location.pathname);
 
   useEffect(() => {
-    getMovieById(params.id).then((data) => setMovieData(data))
-  }, [params.id])
+    getMovieById(id).then((data) => setMovieData(data))
+  }, [id])
 
   if(!movieData) {
     return <h1>Loading...</h1>
@@ -28,15 +28,26 @@ export const MovieDetails = () => {
     navigate(location?.state ?? '/');  // Здесь мы в navigate прокидываем объект(предыдущей страницы)
   }
 
+  const isCastVisible = location.pathname.endsWith('/cast')
+
   return (
     <div>
-      <h2>Movie Details</h2>
-      <Button onClick={handleGoBack}>Go back</Button>
-      <h3>{movieData.title}</h3>
-      <img src={`${BASE_IMG}${movieData.backdrop_path}`} alt={`${movieData.title} poster`} />
+      <Button style={{marginTop: '20px'}} onClick={handleGoBack}>Go back</Button>
+      <h1>{movieData.title}</h1>
+      <img 
+        src={`${BASE_IMG}${movieData.backdrop_path}`} 
+        alt={`${movieData.title} poster`}
+        style={{width: '800px', border: '3px solid white', borderRadius:'5px'}}
+        />
       <p>{movieData.overview}</p>
-      <Link to={`${location.pathname}/cast`} state={location?.state ?? ''}>Cast</Link>
+      {isCastVisible ? (
+        <Link to={`/search/${id}`}>Hide Cast</Link>
+      ) : (
+        <Link to={`${location.pathname}/cast`} state={location?.state ?? ''}>Cast</Link>
+      )}
       <Outlet />
     </div>
   )
 }
+
+export default MovieDetails;

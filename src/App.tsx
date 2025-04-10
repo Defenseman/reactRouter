@@ -1,20 +1,23 @@
 import { Routes, Route } from 'react-router';
 import './App.css';
-import { HomePage } from './pages/HomePage';
-import { SearchMovie } from './pages/SearchMovie';
-import { AppBar } from './components/AppBar/AppBar';
-import { MovieDetails } from './pages/MovieDetails';
 import { Cast } from './components/Cast/Cast';
+import { lazy } from 'react';
+
+const LazySharedLayout = lazy(() => import('./pages/SharedLayout'));
+const LazyHomePage = lazy(() => import('./pages/HomePage'));
+const LazySearchMovies = lazy(() => import('./pages/SearchMovie'));
+const LazyMovieDetails = lazy(() => import('./pages/MovieDetails'));
 
 function App() {
   return (
     <div>
-      <AppBar />
       <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/search' element={<SearchMovie />} />
-        <Route path='/search/:id' element={<MovieDetails />} >
-          <Route path='/search/:id/cast' element={<Cast/>}/>
+        <Route path='/' element={<LazySharedLayout />}>
+          <Route index element={<LazyHomePage />} />
+          <Route path='/search' element={<LazySearchMovies />} />
+          <Route path='/search/:id' element={<LazyMovieDetails />} >
+            <Route path='/search/:id/cast' element={<Cast/>}/>
+          </Route>
         </Route>
       </Routes>
     </div>

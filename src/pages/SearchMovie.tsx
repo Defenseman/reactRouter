@@ -5,7 +5,7 @@ import { getMovieByQuery } from '../services/moviesApi';
 import { MoviesProps } from '../components/MoviesList/MoviesList';
 import { useSearchParams } from 'react-router';
 
-export const SearchMovie = () => {
+const SearchMovie = () => {
   const [movies, setMovies] = useState<MoviesProps>([]);
   const [query, setQuery] = useSearchParams();
   const [searchValue, setSearchValue] = useState('')
@@ -64,3 +64,5 @@ export const SearchMovie = () => {
     </div>
   )
 }
+
+export default SearchMovie

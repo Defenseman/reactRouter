@@ -8,7 +8,7 @@ interface IMovies {
   poster_path: string;
 };
 
-export const HomePage = () => {
+const HomePage = () => {
   const [popularMovies, setPopularMovies] = useState<IMovies[]>([]);
 
   useEffect(() => {
@@ -22,3 +22,5 @@ export const HomePage = () => {
     </div>
   );
 };
+
+export default HomePage
