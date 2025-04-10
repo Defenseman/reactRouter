@@ -44,3 +44,12 @@ export const getMovieByQuery = async (query) => {
         throw new Error(error);
     }
 }
+
+export const getCast = async (id) => {
+    try {
+        const response = await agent(`movie/${id}/credits?language=en-US`);
+        return response.data.cast;
+    } catch (error) {
+        throw new Error(error);
+    }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
 const BASE_IMG = 'https://image.tmdb.org/t/p/w200';
 
@@ -16,6 +16,8 @@ export interface MoviesProps {
 }
 
 export const MoviesList = ({ movies }: MoviesProps) => {
+  const location = useLocation();
+  
   return (
     <ul 
       style={{
@@ -40,7 +42,7 @@ export const MoviesList = ({ movies }: MoviesProps) => {
             cursor: 'pointer',
           }}
           key={movie.id}>
-            <Link to={`/search/${movie.id}`} style={{color: 'white'}}>
+            <Link to={`/search/${movie.id}`} style={{color: 'white'}} state={location}>
               <h2>{movie.title}</h2>
               <img src={`${BASE_IMG}${movie.poster_path}`} alt={`${movie.original_title} poster`} />
               <p style={{ textAlign: 'justify'}}>{movie.overview}</p>
